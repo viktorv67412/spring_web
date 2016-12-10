@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.model.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class UserController extends HttpServlet {
 
@@ -24,11 +26,13 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*List<User> allUsers = userService.getAllUsers();
-        resp.getWriter().println(allUsers);*/
 
         String name = req.getParameter("name");
         String password = req.getParameter("password");
+
+        List<User> users = userService.checkCredentials(new User(name, password));
+
+        resp.getWriter().println(users);
     }
 
     @Override
