@@ -14,13 +14,24 @@ public class UserDaoImpl implements UserDao {
 
     private List<User> users;
 
-    public void usersFromProperties() throws IOException {
+    private void usersFromProperties() {
+
         Properties properties = new Properties();
         InputStream resourceAsStream = UserDaoImpl.class.getClassLoader().getResourceAsStream("credentials.properties");
-        properties.load(resourceAsStream);
+        try {
+            properties.load(resourceAsStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         List<User> users = new ArrayList<User>();
         users.add(new User(properties.getProperty("name"), properties.getProperty("password")));
         this.users = users;
+        try {
+            resourceAsStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getAllUsers() throws IOException {
