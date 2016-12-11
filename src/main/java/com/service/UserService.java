@@ -11,5 +11,5 @@ public interface UserService {
 
     List<User> addUser(User newUser) throws IOException;
 
-    List<User> checkCredentials(User userToCheck) throws IOException;
+    List<User> getAllAvailableUsersByCurrentUser(User userToCheck) throws IOException;
 }

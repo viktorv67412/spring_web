@@ -30,7 +30,7 @@ public class UserController extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
 
-        List<User> users = userService.checkCredentials(new User(name, password));
+        List<User> users = userService.getAllAvailableUsersByCurrentUser(new User(name, password));
 
         resp.getWriter().println(users);
     }
